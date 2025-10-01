@@ -1,1 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice kWh → Euros</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: white;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border: 2px solid #e0e4f0;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #5A52FF;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #BFC8E2;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 32px;
+            border: 2px solid #e0e4f0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #BFC8E2;
+            font-weight: 600;
+            caret-color: transparent;
+            cursor: default;
+        }
+
+        input[type="number"].has-input {
+            color: #212430;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::placeholder {
+            color: #BFC8E2;
+        }
+
+        input[type="number"]:focus {
+            border-color: #5A52FF;
+            box-shadow: 0 0 0 4px rgba(90, 82, 255, 0.1);
+        }
+
+        .unit {
+            position: absolute;
+            right: 20px;
+            color: #5A52FF;
+            font-size: 18px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .convert-btn {
+            width: 100%;
+            padding: 18px;
+            background: #5A52FF;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .convert-btn:hover {
+            background: #4840dd;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(90, 82, 255, 0.4);
+        }
+
+        .convert-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-card {
+            background: #f8f9fc;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .result-card.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-text {
+            color: #212430;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .result-value {
+            color: #5A52FF;
+            font-size: 48px;
+            font-weight: 500;
+            font-family: 'Avenir', 'Avenir Next', sans-serif;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .euro-symbol {
+            color: #212430;
+            font-size: 32px;
+            margin-left: 5px;
+        }
+
+        .underline {
+            height: 4px;
+            background: linear-gradient(90deg, #0FC4B2 0%, #5A52FF 100%);
+            width: 60%;
+            margin: 15px auto 20px;
+            border-radius: 2px;
+        }
+
+        .tarif-info {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tarif-rate {
+            font-weight: 700;
+            color: #212430;
+        }
+
+        .note {
+            margin-top: 25px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e4f0;
+        }
+
+        .cta-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #212430;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .cta-subtitle {
+            font-size: 15px;
+            color: #BFC8E2;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cta-btn {
+            padding: 18px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .cta-btn-primary {
+            background: #0FC4B2;
+            color: white;
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            background: #0db09f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 196, 178, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background: white;
+            color: #0FC4B2;
+            border: 2px solid #0FC4B2;
+        }
+
+        .cta-btn-secondary:hover {
+            background: #f0fffe;
+            transform: translateY(-2px);
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input[type="number"] {
+                font-size: 24px;
+            }
+
+            .result-value {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Convertir sa consommation en kWh > euros
+        </h1>
+        <p class="subtitle">Calculez facilement le coût de votre consommation électrique</p>
+
+        <div class="input-group">
+            <div class="input-wrapper">
+                <input type="number" id="kwhInput" placeholder="6000" value="6000" min="0" step="0.01">
+                <span class="unit">kWh</span>
+            </div>
+        </div>
+
+        <button class="convert-btn" onclick="calculate()">Convertir</button>
+
+        <div class="result-card" id="resultCard">
+            <p class="result-text">La conversion d'une consommation de <strong id="inputKwh">0</strong> kWh est de</p>
+            <div>
+                <span class="result-value" id="resultValue">0</span>
+                <span class="euro-symbol">€</span>
+            </div>
+            <div class="underline"></div>
+            <p class="tarif-info">
+                au tarif réglementé en 6 kVA option base de <span class="tarif-rate">0,1952 €/kWh</span><br>
+                vérifié le 01/10/2025.
+            </p>
+            <div class="note">
+                À noter qu'il est possible de convertir des kWh pour des euros moins chers en fonction de l'offre et du fournisseur d'électricité.
+            </div>
+
+            <div class="cta-section">
+                <h2 class="cta-title">Besoin d'aide personnalisée ?</h2>
+                <p class="cta-subtitle">Trouvez le tarif le plus économique pour vos besoins spécifiques</p>
+                <div class="cta-buttons">
+                    <a href="tel:936177859" class="cta-btn cta-btn-primary">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        936 177 859
+                    </a>
+                    <a href="#" class="cta-btn cta-btn-secondary">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                        </svg>
+                        Appeler un Expert Gratuit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const kwhInput = document.getElementById('kwhInput');
+        const resultCard = document.getElementById('resultCard');
+        const resultValue = document.getElementById('resultValue');
+        const inputKwh = document.getElementById('inputKwh');
+
+        const TARIF = 0.1952;
+
+        // Gestion de la couleur du texte par défaut
+        kwhInput.addEventListener('input', function() {
+            if (this.value) {
+                this.classList.add('has-input');
+            } else {
+                this.classList.remove('has-input');
+            }
+        });
+
+        kwhInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculate();
+            }
+        });
+
+        function calculate() {
+            const kwh = parseFloat(kwhInput.value);
+
+            if (isNaN(kwh) || kwh < 0) {
+                alert('Veuillez entrer un nombre valide de kWh');
+                return;
+            }
+
+            const euros = kwh * TARIF;
+            
+            inputKwh.textContent = kwh.toLocaleString('fr-FR');
+            
+            resultValue.textContent = euros.toLocaleString('fr-FR', {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 2
+            });
+
+            resultCard.classList.add('show');
+        }
+    </script>
+</body>
+</html>
