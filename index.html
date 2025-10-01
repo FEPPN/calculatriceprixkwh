@@ -100,7 +100,7 @@
 
         .convert-btn {
             width: 100%;
-            padding: 20px;
+            padding: 16px;
             background: #5A52FF;
             color: white;
             border: none;
@@ -113,13 +113,11 @@
         }
 
         .convert-btn:hover {
-            background: #4840dd;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(90, 82, 255, 0.35);
+            background: #443EBF;
         }
 
         .convert-btn:active {
-            transform: translateY(0);
+            background: #443EBF;
         }
 
         .result-card {
@@ -183,18 +181,21 @@
 
         .note {
             margin-top: 25px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.5;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            font-size: 13px;
+            color: #8b92a8;
+            line-height: 1.6;
+            text-align: center;
         }
 
         .cta-section {
             margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid #e0e4f0;
+            padding: 30px;
+            background: #F1FDFA;
+            border-radius: 16px;
+            border: 2px solid #d4f5f0;
         }
 
         .cta-title {
@@ -207,7 +208,7 @@
 
         .cta-subtitle {
             font-size: 15px;
-            color: #BFC8E2;
+            color: #58534E;
             margin-bottom: 25px;
             text-align: center;
         }
@@ -219,7 +220,7 @@
         }
 
         .cta-btn {
-            padding: 18px 24px;
+            padding: 14px 24px;
             border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
@@ -240,20 +241,17 @@
         }
 
         .cta-btn-primary:hover {
-            background: #0db09f;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(15, 196, 178, 0.3);
+            background: #009482;
         }
 
         .cta-btn-secondary {
             background: white;
             color: #0FC4B2;
-            border: 2px solid #0FC4B2;
+            border: 1px solid #0FC4B2;
         }
 
         .cta-btn-secondary:hover {
             background: #f0fffe;
-            transform: translateY(-2px);
         }
 
         .icon {
@@ -350,7 +348,6 @@
 
         const TARIF = 0.1952;
 
-        // Gestion de la couleur du texte par défaut
         kwhInput.addEventListener('input', function() {
             if (this.value) {
                 this.classList.add('has-input');
