@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemMedia, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: white;
             padding: 20px;
         }
@@ -29,16 +29,16 @@
 
         h1 {
             color: #212430;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 12px;
             font-weight: 700;
             text-align: center;
         }
 
         .subtitle {
             color: #BFC8E2;
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 17px;
+            margin-bottom: 35px;
             text-align: center;
         }
 
@@ -61,8 +61,8 @@
             outline: none;
             transition: all 0.3s ease;
             color: #BFC8E2;
-            font-weight: 600;
-            caret-color: #5A52FF;
+            font-weight: 400;
+            font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             cursor: text;
         }
 
@@ -100,7 +100,7 @@
 
         .convert-btn {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: #5A52FF;
             color: white;
             border: none;
@@ -115,7 +115,7 @@
         .convert-btn:hover {
             background: #4840dd;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(90, 82, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(90, 82, 255, 0.35);
         }
 
         .convert-btn:active {
@@ -123,14 +123,15 @@
         }
 
         .result-card {
-            background: #f8f9fc;
+            background: linear-gradient(145deg, #f8f9fc 0%, #f0f2f8 100%);
             border-radius: 16px;
-            padding: 30px;
+            padding: 35px;
             text-align: center;
             display: none;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
+            box-shadow: 0 4px 20px rgba(33, 36, 48, 0.05);
         }
 
         .result-card.show {
@@ -147,16 +148,17 @@
 
         .result-value {
             color: #5A52FF;
-            font-size: 48px;
-            font-weight: 500;
+            font-size: 52px;
+            font-weight: 600;
             font-family: 'Avenir', 'Avenir Next', sans-serif;
             margin-bottom: 5px;
             line-height: 1;
         }
 
         .euro-symbol {
-            color: #212430;
-            font-size: 32px;
+            color: #5A52FF;
+            font-size: 36px;
+            font-weight: 600;
             margin-left: 5px;
         }
 
@@ -281,7 +283,17 @@
 <body>
     <div class="container">
         <h1>
-            Convertir sa consommation en kWh > euros
+            <svg style="width: 26px; height: 26px; display: inline-block; vertical-align: middle; margin-right: 10px; margin-bottom: 2px;" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="2" width="18" height="20" rx="3" stroke="#5A52FF" stroke-width="2" fill="none"/>
+                <rect x="6" y="5" width="12" height="3.5" rx="1" fill="#5A52FF"/>
+                <circle cx="7.5" cy="12.5" r="1.2" fill="#5A52FF"/>
+                <circle cx="12" cy="12.5" r="1.2" fill="#5A52FF"/>
+                <circle cx="16.5" cy="12.5" r="1.2" fill="#5A52FF"/>
+                <circle cx="7.5" cy="17" r="1.2" fill="#5A52FF"/>
+                <circle cx="12" cy="17" r="1.2" fill="#5A52FF"/>
+                <circle cx="16.5" cy="17" r="1.2" fill="#5A52FF"/>
+            </svg>
+            Calculatrice : Convertir sa consommation en kWh > euros
         </h1>
         <p class="subtitle">Calculez facilement le coût de votre consommation électrique</p>
 
