@@ -13,9 +13,9 @@
         body {
             font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: white;
-            padding: 20px;
+            padding: 0;
             margin: 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .container {
@@ -392,7 +392,38 @@
 
             resultCard.classList.add('show');
             ctaSection.classList.add('show');
+            
+            // Envoyer la hauteur après l'affichage des résultats
+            setTimeout(sendHeight, 500);
         }
+
+        // Fonction pour envoyer la hauteur au parent
+        function sendHeight() {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ height: height }, '*');
+        }
+
+        // Envoyer la hauteur au chargement
+        window.addEventListener('load', function() {
+            sendHeight();
+            // Re-envoyer après un court délai pour s'assurer que tout est bien chargé
+            setTimeout(sendHeight, 100);
+        });
+
+        // Observer les changements dans le DOM
+        const observer = new MutationObserver(function() {
+            sendHeight();
+        });
+
+        observer.observe(document.body, { 
+            childList: true, 
+            subtree: true, 
+            attributes: true,
+            attributeFilter: ['class', 'style']
+        });
+
+        // Envoyer la hauteur quand la fenêtre est redimensionnée
+        window.addEventListener('resize', sendHeight);
     </script>
 </body>
 </html>
