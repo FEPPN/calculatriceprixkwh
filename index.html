@@ -47,6 +47,14 @@
             margin-bottom: 30px;
         }
 
+        .input-label {
+            color: #212430;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
         .input-wrapper {
             position: relative;
             display: flex;
@@ -310,6 +318,7 @@
         <p class="subtitle">Calculez facilement le coût de votre consommation électrique</p>
 
         <div class="input-group">
+            <label for="kwhInput" class="input-label">Entrez votre consommation en kWh</label>
             <div class="input-wrapper">
                 <input type="number" id="kwhInput" placeholder="6000" value="6000" min="0" step="0.01">
                 <span class="unit">kWh</span>
